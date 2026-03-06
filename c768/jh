@@ -1,0 +1,30 @@
+#!/bin/sh
+#SBATCH -e err
+#SBATCH -o out
+##SBATCH --account=nems
+#SBATCH --qos=batch
+#SBATCH --partition=hercules
+#SBATCH --nodes=53
+#SBATCH --account=nems
+#SBATCH --ntasks-per-node=40
+#SBATCH --time=190:00
+#SBATCH --job-name="JLO"
+#SBATCH --exclusive
+source $HOME/.mod24
+export OMP_STACKSIZE=512M
+export KMP_AFFINITY=scatter
+export OMP_NUM_THREADS=1
+#export ESMF_RUNTIME_COMPLIANCECHECK=OFF:depth=4
+#export PSM_RANKS_PER_CONTEXT=4
+#export PSM_SHAREDCONTEXTS=1
+export ESMF_RUNTIME_PROFILE=ON
+export ESMF_RUNTIME_PROFILE_OUTPUT="SUMMARY"
+
+
+
+srun -l  -n 2120 ../ufs_model.fd/build/ufs_model  >oo 2>ee 
+#srun -l  -n 2176 ../ufs_model.fd/tests/ufs_model.x  >oo 2>ee 
+exit
+srun -l  -n 5484 ldd ../sorc/ufs_model.fd/tests/ufs_model.gwv >lddo 2>ldde
+srun -l  -n 2606 ../sorc/ufs_model.fd/build/ufs_model >oohg 2>eehg
+
