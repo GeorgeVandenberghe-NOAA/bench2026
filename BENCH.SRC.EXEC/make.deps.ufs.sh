@@ -8,5 +8,4 @@ source ./setup.dependencies
 read a
 cd ../ufs_model.fd
 sh -x make.ufs.sh
-cd ..
-sh -x  make.hafs.sh
+
